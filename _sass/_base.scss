@@ -150,6 +150,37 @@ blockquote {
   }
 }
 
+// Mobile layout tweaks
+@media (max-width: 575.98px) {
+  // Center the profile photo above the intro text instead of a tiny float
+  .profile.float-left,
+  .profile.float-right {
+    float: none !important;
+    display: block;
+    width: 70%;
+    max-width: 230px;
+    margin: 0 auto 1.5rem;
+  }
+
+  // Keep the name heading readable on small screens
+  .post-header .post-title {
+    font-size: 1.9rem;
+    word-break: break-word;
+  }
+
+  // Stack publication previews neatly and center them
+  .publications ol.bibliography li {
+    .col-sm-3.preview {
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .preview {
+      max-width: 260px;
+    }
+  }
+}
+
 .post-description {
   margin-bottom: 2rem;
   font-size: 1rem;
@@ -164,10 +195,61 @@ blockquote {
   }
 }
 
+// About page
+
+.about-article {
+  // Intro paragraphs
+  p {
+    line-height: 1.7;
+  }
+
+  // "I am looking for collaboration" callout (h5 from markdown content)
+  .clearfix h5 {
+    text-align: center;
+    color: var(--global-theme-color);
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Consistent section headings on the about page
+.about-heading {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 2.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--global-divider-color);
+
+  a {
+    color: var(--global-text-color);
+
+    &:hover {
+      color: var(--global-theme-color);
+      text-decoration: none;
+    }
+  }
+}
+
+.equal-contrib {
+  font-size: 0.8rem;
+  color: var(--global-text-color-light);
+  margin-top: -0.75rem;
+  margin-bottom: 1.5rem;
+}
+
 .image-container {
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically if needed */
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0 0.5rem;
+
+  .affiliations-img {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+  }
 }
 
 ul.ul-edu {
@@ -187,11 +269,6 @@ ul.ul-edu {
       content: none !important;
       display: none !important;
     }
-  }
-
-  .education-header {
-    margin-bottom: 15px;
-    font-size: 22px;
   }
 
   .edu-flex {
