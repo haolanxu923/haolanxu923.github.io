@@ -12,7 +12,6 @@ profile:
     <p>jamesdemon923@gmail.com</p>
     <!--<p>123 your address street</p>-->
 
-education: true
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 
