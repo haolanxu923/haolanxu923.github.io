@@ -359,8 +359,10 @@ section { scroll-margin-top: 70px; }
   width: 100%;
   aspect-ratio: 16 / 10;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
 }
+/* For teasers on a dark ground, letterbox in the same color */
+.pub-thumb.thumb-dark { background: #000000; border-color: #000000; }
 .pub-thumb:hover {
   box-shadow: 0 8px 22px -10px rgba(30, 45, 90, 0.35);
   transform: translateY(-2px);
