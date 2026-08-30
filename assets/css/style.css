@@ -1,7 +1,8 @@
 /* ==========================================================================
    Haolan Xu — personal homepage
-   Single light theme. Continuous white page, sections split by thin rules,
-   floating "Contents" sidebar in the left gutter (chen-geng.com style).
+   Single light theme. Full-width alternating section bands (tianxingchen
+   style) with a floating "Contents" sidebar in the left gutter (chen-geng
+   style). Content column centered inside each band.
    ========================================================================== */
 
 :root {
@@ -10,12 +11,12 @@
   --muted: #5c6577;
   --faint: #8b93a5;
   --border: #e3e8f2;
-  --border-soft: #ecf0f7;
+  --border-soft: #e9edf4;
+  --band-alt: #f5f7fa;
   --accent: #2f55d4;
   --accent-strong: #2343b8;
   --accent-tint: #edf2fe;
   --accent-tint-border: #d8e2fb;
-  --highlight: #f3f7ff;
   --navy: #1e2c50;
   --amber-bg: #fff7e0;
   --amber-border: #f3e2ab;
@@ -50,23 +51,23 @@ button:focus-visible {
 }
 
 /* --------------------------------------------------------------------------
-   Page column
+   Full-width bands + centered content column
    -------------------------------------------------------------------------- */
 
-.page {
-  max-width: 840px;
-  margin: 0 auto;
-  padding: 60px 26px 36px;
-}
-
-section { scroll-margin-top: 80px; }
-
-section + section,
-.footer {
+.band { padding: 58px 0; }
+.band-alt {
+  background: var(--band-alt);
   border-top: 1px solid var(--border-soft);
-  margin-top: 46px;
-  padding-top: 40px;
+  border-bottom: 1px solid var(--border-soft);
 }
+
+.container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+section { scroll-margin-top: 70px; }
 
 /* --------------------------------------------------------------------------
    Floating table-of-contents sidebar (desktop only)
@@ -75,9 +76,9 @@ section + section,
 #toc-nav {
   position: fixed;
   top: 50%;
-  left: calc(50% - 420px - 168px);
+  left: calc(50% - 460px - 158px);
   transform: translateY(-50%);
-  width: 148px;
+  width: 138px;
   z-index: 100;
   padding-left: 15px;
   border-left: 1px solid var(--border);
@@ -138,7 +139,7 @@ section + section,
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  max-width: 788px;
+  max-width: 860px;
   margin: 0 auto;
 }
 .topbar .top-name {
@@ -166,58 +167,55 @@ section + section,
   display: flex;
   align-items: center;
   gap: 18px;
-  margin-bottom: 24px;
+  margin-bottom: 26px;
   flex-wrap: wrap;
 }
 .section-head h2 {
   font-family: var(--font-serif);
-  font-size: 27px;
+  font-size: 29px;
   font-weight: 700;
   color: var(--ink-strong);
   margin: 0;
   line-height: 1.25;
-  text-wrap: balance;
-}
-.section-head .rule {
-  flex: 1;
-  height: 1px;
-  background: var(--border-soft);
-  min-width: 40px;
 }
 
 /* --------------------------------------------------------------------------
    Hero / About
    -------------------------------------------------------------------------- */
 
+#about.band { padding-top: 64px; }
+
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 212px;
-  gap: 44px;
+  grid-template-columns: minmax(0, 1fr) 256px;
+  gap: 48px;
   align-items: start;
 }
 
 .name-row {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
   flex-wrap: wrap;
-  margin: 0 0 16px;
+  margin: 0 0 18px;
 }
 .name-row h1 {
   font-family: var(--font-serif);
-  font-size: 41px;
+  font-size: 42px;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--ink-strong);
   margin: 0;
-  line-height: 1.15;
+  line-height: 1;
 }
 .name-zh {
   font-family: var(--font-serif-zh);
-  font-size: 25px;
+  font-size: 27px;
   font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.06em;
+  line-height: 1;
+  transform: translateY(2px);
 }
 
 .hero-text p { margin: 0 0 13px; }
@@ -226,8 +224,6 @@ section + section,
 .portrait-col {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding-top: 8px;
 }
 .portrait {
   width: 100%;
@@ -236,11 +232,18 @@ section + section,
   border-radius: 14px;
   box-shadow: 0 0 0 1px var(--border), 0 12px 30px -16px rgba(30, 45, 90, 0.35);
 }
-.portrait-caption {
-  text-align: center;
-  font-size: 13px;
-  color: var(--faint);
+/* Email shown as text (best contact method), above the link buttons */
+.email-line {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 24px 0 0;
+  font-size: 16px;
+  font-weight: 600;
 }
+.email-line .icon { color: var(--accent); }
+.email-line a { color: var(--ink); }
+.email-line a:hover { color: var(--accent); }
 
 /* Research directions */
 .research-list {
@@ -258,7 +261,7 @@ section + section,
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 22px;
+  margin-top: 14px;
 }
 .contact-row a {
   display: inline-flex;
@@ -283,6 +286,9 @@ section + section,
 
 /* Collaboration callout */
 .callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   margin-top: 22px;
   background: var(--amber-bg);
   border: 1px solid var(--amber-border);
@@ -293,6 +299,7 @@ section + section,
   font-weight: 500;
   line-height: 1.55;
 }
+.callout .icon { font-size: 18px; margin-top: 4px; color: #d99e0b; }
 .callout a { color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 
 /* --------------------------------------------------------------------------
@@ -302,7 +309,7 @@ section + section,
 /* Selected / All segmented control */
 .pub-toggle {
   display: inline-flex;
-  background: #edf0f7;
+  background: #e7ebf2;
   border-radius: 999px;
   padding: 3px;
   margin-left: auto;
@@ -329,25 +336,26 @@ section + section,
 .pub-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin: 0 -18px;
+  gap: 12px;
+  margin: 0 -20px;
   padding: 0;
   list-style: none;
 }
 .pub-item {
   display: grid;
-  grid-template-columns: 228px minmax(0, 1fr);
-  gap: 26px;
-  align-items: start;
-  padding: 18px;
-  border-radius: 12px;
+  grid-template-columns: 252px minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+  padding: 20px;
+  border-radius: 14px;
 }
 .pub-item.hidden { display: none; }
 
 /* In the "All" view, selected papers are highlighted (chen-geng.com style) */
 .pub-list.show-all .pub-item[data-selected="true"] {
-  background: var(--highlight);
-  box-shadow: inset 3px 0 0 0 var(--accent);
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: inset 3px 0 0 0 var(--accent), 0 2px 10px -6px rgba(30, 45, 90, 0.12);
 }
 
 .pub-thumb {
@@ -355,13 +363,15 @@ section + section,
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--border);
-  background: #f6f8fc;
+  background: #ffffff;
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 .pub-thumb img {
   display: block;
   width: 100%;
+  aspect-ratio: 16 / 10;
   height: auto;
+  object-fit: cover;
 }
 .pub-thumb:hover {
   box-shadow: 0 8px 22px -10px rgba(30, 45, 90, 0.35);
@@ -422,23 +432,15 @@ section + section,
   border-color: var(--accent);
 }
 
-/* Per-publication note, e.g. equal contribution */
-.pub-note {
-  margin: 10px 0 0;
-  font-size: 13.5px;
+/* Legend line directly under the Publications title */
+.pub-desc {
+  margin: -12px 0 24px;
+  font-size: 14px;
   color: var(--faint);
 }
-
-/* Legend shown only in the "All" view */
-.pub-legend {
-  display: none;
-  margin: 18px 0 0;
-  font-size: 13.5px;
-  color: var(--faint);
-}
-.pub-list.show-all + .pub-legend { display: block; }
-.pub-legend .legend-swatch {
-  background: var(--highlight);
+.pub-desc .legend-swatch {
+  background: #ffffff;
+  border: 1px solid var(--border);
   box-shadow: inset 3px 0 0 0 var(--accent);
   padding: 1px 7px;
   color: var(--muted);
@@ -449,6 +451,7 @@ section + section,
    -------------------------------------------------------------------------- */
 
 .footer {
+  padding: 34px 0;
   text-align: center;
   font-size: 13.5px;
   color: var(--faint);
@@ -477,16 +480,16 @@ section + section,
    -------------------------------------------------------------------------- */
 
 /* Below this width the left gutter can no longer hold the sidebar */
-@media (max-width: 1190px) {
+@media (max-width: 1270px) {
   #toc-nav { display: none; }
   .topbar { display: block; }
-  .page { padding-top: 36px; }
 }
 
 @media (max-width: 760px) {
-  .page { padding: 28px 18px 28px; }
+  .band { padding: 40px 0; }
+  #about.band { padding-top: 34px; }
+  .container { padding: 0 20px; }
   section { scroll-margin-top: 64px; }
-  section + section, .footer { margin-top: 36px; padding-top: 32px; }
 
   .hero-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -494,7 +497,7 @@ section + section,
   }
   .portrait-col {
     order: -1;
-    max-width: 200px;
+    max-width: 210px;
     padding-top: 0;
   }
   .name-row h1 { font-size: 34px; }
@@ -506,7 +509,7 @@ section + section,
     gap: 14px;
     padding: 14px 12px;
   }
-  .pub-thumb { max-width: 340px; }
+  .pub-thumb { max-width: 360px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
