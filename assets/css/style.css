@@ -189,7 +189,7 @@ section { scroll-margin-top: 70px; }
   display: grid;
   grid-template-columns: minmax(0, 1fr) 264px;
   gap: 48px;
-  align-items: center;
+  align-items: start;
 }
 
 .name-row {
@@ -197,7 +197,7 @@ section { scroll-margin-top: 70px; }
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
-  margin: 0 0 18px;
+  margin: 0 0 20px;
 }
 .name-row h1 {
   font-family: var(--font-serif);
