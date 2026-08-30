@@ -233,16 +233,6 @@ section { scroll-margin-top: 70px; }
   box-shadow: 0 0 0 1px var(--border), 0 12px 30px -16px rgba(30, 45, 90, 0.35);
 }
 
-/* Research directions */
-.research-list {
-  margin: 6px 0 14px;
-  padding-left: 24px;
-}
-.research-list li {
-  margin: 4px 0;
-}
-.research-list strong { color: var(--ink-strong); }
-.research-list li::marker { color: var(--accent); }
 
 /* Social / contact buttons (incl. CV) */
 .contact-row {
