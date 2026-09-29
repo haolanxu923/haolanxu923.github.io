@@ -13,7 +13,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:wght@500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&text=%E8%AE%B8%E7%9A%93%E5%B2%9A&display=swap" rel="stylesheet">
+  <meta name="color-scheme" content="light dark">
   <link rel="stylesheet" href="assets/css/style.css">
+  <script>
+    // Apply a saved light/dark choice before first paint; otherwise follow the OS
+    try {
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
+    } catch (e) {}
+  </script>
 </head>
 <body>
 
@@ -47,17 +55,26 @@
     <symbol id="i-pdf" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.6 11.85H0v3.999h.791v-1.342h.803q.43 0 .732-.173.305-.175.463-.474a1.4 1.4 0 0 0 .161-.677q0-.375-.158-.677a1.2 1.2 0 0 0-.46-.477q-.3-.18-.732-.179m.545 1.333a.8.8 0 0 1-.085.38.57.57 0 0 1-.238.241.8.8 0 0 1-.375.082H.788V12.48h.66q.327 0 .512.181.185.183.185.522m1.217-1.333v3.999h1.46q.602 0 .998-.237a1.45 1.45 0 0 0 .595-.689q.196-.45.196-1.084 0-.63-.196-1.075a1.43 1.43 0 0 0-.589-.68q-.396-.234-1.005-.234zm.791.645h.563q.371 0 .609.152a.9.9 0 0 1 .354.454q.118.302.118.753a2.3 2.3 0 0 1-.068.592 1.1 1.1 0 0 1-.196.422.8.8 0 0 1-.334.252 1.3 1.3 0 0 1-.483.082h-.563zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638z"/>
     </symbol>
+    <symbol id="i-moon" viewBox="0 0 16 16">
+      <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+    </symbol>
+    <symbol id="i-sun" viewBox="0 0 16 16">
+      <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+    </symbol>
   </svg>
 
   <!-- Mobile top bar -->
   <header class="topbar">
     <div class="topbar-inner">
       <a class="top-name" href="#about">Haolan Xu</a>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#publications">Publications</a>
-        <!-- <a href="#news">News</a> -->
-      </nav>
+      <div class="topbar-right">
+        <nav>
+          <a href="#about">About</a>
+          <a href="#publications">Publications</a>
+          <!-- <a href="#news">News</a> -->
+        </nav>
+        <button type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="icon i-moon"><use href="#i-moon"/></svg><svg class="icon i-sun"><use href="#i-sun"/></svg></button>
+      </div>
     </div>
   </header>
 
@@ -70,6 +87,7 @@
     <a href="#news">News</a>
     <a href="#experience">Experience</a>
     -->
+    <button type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="icon i-moon"><use href="#i-moon"/></svg><svg class="icon i-sun"><use href="#i-sun"/></svg></button>
   </nav>
 
   <main class="page">
@@ -84,7 +102,7 @@
 
         <div class="hero-grid">
           <div class="hero-text">
-            <p>Hi! I'm currently a visiting scholar at the <a href="https://cs.unc.edu/" target="_blank" rel="noopener">University of North Carolina at Chapel Hill</a>, working with <a href="https://scholar.google.com/citations?user=Bii0w1oAAAAJ&amp;hl=en" target="_blank" rel="noopener">Prof. Xiaoming Liu</a>. Previously, I was a visiting student at the <a href="https://ece.illinois.edu/" target="_blank" rel="noopener">University of Illinois Urbana-Champaign</a>, working with <a href="https://scholar.google.com/citations?user=dY7OSl0AAAAJ&amp;hl=en" target="_blank" rel="noopener">Prof. Narendra Ahuja</a>. Before that, I received my M.S. in Computer Science from the <a href="https://www.cise.ufl.edu/" target="_blank" rel="noopener">University of Florida</a>, working with <a href="https://www.cise.ufl.edu/~jorg/" target="_blank" rel="noopener">Prof. Jorg Peters</a>, and my Bachelor's degree from Sichuan University.</p>
+            <p>Hi! I'm currently a visiting scholar at the <a href="https://cs.unc.edu/" target="_blank" rel="noopener">University of North Carolina at Chapel Hill</a>, working with <a href="https://scholar.google.com/citations?user=Bii0w1oAAAAJ&amp;hl=en" target="_blank" rel="noopener">Prof. Xiaoming Liu</a>. Previously, I was a research assistant at the <a href="https://ece.illinois.edu/" target="_blank" rel="noopener">University of Illinois Urbana-Champaign</a>, working with <a href="https://scholar.google.com/citations?user=dY7OSl0AAAAJ&amp;hl=en" target="_blank" rel="noopener">Prof. Narendra Ahuja</a>. Before that, I received my M.S. in Computer Science from the <a href="https://www.cise.ufl.edu/" target="_blank" rel="noopener">University of Florida</a>, working with <a href="https://www.cise.ufl.edu/~jorg/" target="_blank" rel="noopener">Prof. Jorg Peters</a>, and my Bachelor's degree from Sichuan University.</p>
 
             <p>My research lies in 4D Computer Vision, with a particular focus on digital humans. I'm broadly interested in <strong>human motion modeling</strong> — how the human body is shaped, how it moves, what its motion means, and how it interacts with the physical world. Currently, I focus on generating expressive human motion directly from audio.</p>
 
@@ -183,6 +201,24 @@
   </footer>
 
   <script>
+    // Light / dark toggle. Picking the theme the OS already uses clears the
+    // override, so the page goes back to following the system setting.
+    var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+    document.querySelectorAll('.theme-toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var root = document.documentElement;
+        var current = root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
+        var next = current === 'dark' ? 'light' : 'dark';
+        var followsSystem = next === (systemDark.matches ? 'dark' : 'light');
+        try {
+          if (followsSystem) localStorage.removeItem('theme');
+          else localStorage.setItem('theme', next);
+        } catch (e) {}
+        if (followsSystem) delete root.dataset.theme;
+        else root.dataset.theme = next;
+      });
+    });
+
     // Selected / All publication toggle
     var toggleButtons = document.querySelectorAll('.pub-toggle button');
     var pubList = document.querySelector('.pub-list');
