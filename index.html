@@ -14,12 +14,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:wght@500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600&text=%E8%AE%B8%E7%9A%93%E5%B2%9A&display=swap" rel="stylesheet">
   <meta name="color-scheme" content="light dark">
-  <link rel="stylesheet" href="assets/css/style.css?v=20260929">
+  <link rel="stylesheet" href="assets/css/style.css?v=20260929b">
   <script>
-    // Apply a saved light/dark choice before first paint; otherwise follow the OS
+    // Dark by default; apply a saved "light" choice before first paint
     try {
-      var savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme;
+      if (localStorage.getItem('theme') === 'light') document.documentElement.dataset.theme = 'light';
     } catch (e) {}
   </script>
 </head>
@@ -67,14 +66,11 @@
   <header class="topbar">
     <div class="topbar-inner">
       <a class="top-name" href="#about">Haolan Xu</a>
-      <div class="topbar-right">
-        <nav>
-          <a href="#about">About</a>
-          <a href="#publications">Publications</a>
-          <!-- <a href="#news">News</a> -->
-        </nav>
-        <button type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="icon i-moon"><use href="#i-moon"/></svg><svg class="icon i-sun"><use href="#i-sun"/></svg></button>
-      </div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#publications">Publications</a>
+        <!-- <a href="#news">News</a> -->
+      </nav>
     </div>
   </header>
 
@@ -89,9 +85,6 @@
     -->
   </nav>
 
-  <!-- Light / dark toggle, fixed to the top-right corner (desktop) -->
-  <button type="button" class="theme-toggle theme-toggle-fixed" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="icon i-moon"><use href="#i-moon"/></svg><svg class="icon i-sun"><use href="#i-sun"/></svg></button>
-
   <main class="page">
 
       <!-- ================================ About ================================ -->
@@ -100,6 +93,7 @@
         <div class="name-row">
           <h1>Haolan Xu</h1>
           <span class="name-zh">许皓岚</span>
+          <button type="button" class="theme-toggle" aria-label="Switch light / dark" title="Switch light / dark"><svg class="icon i-moon"><use href="#i-moon"/></svg><svg class="icon i-sun"><use href="#i-sun"/></svg></button>
         </div>
 
         <div class="hero-grid">
@@ -203,21 +197,17 @@
   </footer>
 
   <script>
-    // Light / dark toggle. Picking the theme the OS already uses clears the
-    // override, so the page goes back to following the system setting.
-    var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+    // Light / dark toggle (dark is the default)
     document.querySelectorAll('.theme-toggle').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var root = document.documentElement;
-        var current = root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
-        var next = current === 'dark' ? 'light' : 'dark';
-        var followsSystem = next === (systemDark.matches ? 'dark' : 'light');
+        var toLight = root.dataset.theme !== 'light';
+        if (toLight) root.dataset.theme = 'light';
+        else delete root.dataset.theme;
         try {
-          if (followsSystem) localStorage.removeItem('theme');
-          else localStorage.setItem('theme', next);
+          if (toLight) localStorage.setItem('theme', 'light');
+          else localStorage.removeItem('theme');
         } catch (e) {}
-        if (followsSystem) delete root.dataset.theme;
-        else root.dataset.theme = next;
       });
     });
 
@@ -243,6 +233,11 @@
       var target = document.querySelector(link.getAttribute('href'));
       if (target) sections.push({ link: link, section: target });
     });
+    function setActive(current) {
+      sections.forEach(function (entry) {
+        entry.link.classList.toggle('active', entry === current);
+      });
+    }
     function updateActive() {
       var current = sections[0];
       sections.forEach(function (entry) {
@@ -250,10 +245,18 @@
           current = entry;
         }
       });
-      sections.forEach(function (entry) {
-        entry.link.classList.toggle('active', entry === current);
-      });
+      // On tall screens the last section can't scroll up to the 35% line;
+      // once the page is scrolled to the bottom, treat it as active.
+      var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (window.scrollY > 0 && window.scrollY >= maxScroll - 2) {
+        current = sections[sections.length - 1];
+      }
+      setActive(current);
     }
+    // Highlight the clicked entry right away (also covers pages too short to scroll)
+    sections.forEach(function (entry) {
+      entry.link.addEventListener('click', function () { setActive(entry); });
+    });
     window.addEventListener('scroll', updateActive, { passive: true });
     window.addEventListener('resize', updateActive);
     updateActive();

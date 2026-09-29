@@ -1,9 +1,9 @@
 /* ==========================================================================
    Haolan Xu — personal homepage
-   Light + dark themes (dark follows the OS setting unless the visitor picks
-   one with the toggle, stored as data-theme on <html>). Full-width alternating section bands (tianxingchen
-   style) with a floating "Contents" sidebar in the left gutter (chen-geng
-   style). Content column centered inside each band.
+   Dark theme by default; visitors can switch to light with the toggle
+   (stored as data-theme="light" on <html>). Full-width alternating section
+   bands (tianxingchen style) with a floating "Contents" sidebar in the left
+   gutter (chen-geng style). Content column centered inside each band.
    ========================================================================== */
 
 :root {
@@ -38,38 +38,8 @@
   --font-sans: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ink: #d3d9e6;
-    --ink-strong: #eef1f7;
-    --muted: #9aa3b6;
-    --faint: #6d7690;
-    --border: #283246;
-    --border-soft: #1e2636;
-    --band-alt: #131a27;
-    --accent: #7f9dff;
-    --accent-strong: #a3b8ff;
-    --accent-tint: #19223b;
-    --accent-tint-border: #2b3a66;
-    --navy: #2e3f70;
-    --amber-bg: #262011;
-    --amber-border: #4a3c17;
-    --amber-ink: #e6c878;
-    --amber-icon: #f0b429;
-    --bg: #0e131d;
-    --surface: #161d2b;
-    --surface-soft: #141a27;
-    --track: #1c2434;
-    --topbar-bg: rgba(14, 19, 29, 0.9);
-    --link-hover-bg: #212d52;
-    --thumb-bg: #ffffff;
-    --shadow: rgba(0, 0, 0, 0.6);
-    --shadow-soft: rgba(0, 0, 0, 0.4);
-    color-scheme: dark;
-  }
-}
-
-:root[data-theme="dark"] {
+/* Dark is the default; light only when the visitor picks it */
+:root:not([data-theme="light"]) {
   --ink: #d3d9e6;
   --ink-strong: #eef1f7;
   --muted: #9aa3b6;
@@ -208,7 +178,7 @@ section { scroll-margin-top: 70px; }
 }
 .topbar .topbar-inner {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   gap: 16px;
   max-width: 860px;
@@ -540,29 +510,21 @@ section { scroll-margin-top: 70px; }
   background: var(--accent-tint);
 }
 .theme-toggle .icon { font-size: 16px; }
-/* Light shows the moon (switch to dark); dark shows the sun */
-.theme-toggle .i-sun { display: none; }
-:root[data-theme="dark"] .theme-toggle .i-sun { display: block; }
-:root[data-theme="dark"] .theme-toggle .i-moon { display: none; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle .i-sun { display: block; }
-  :root:not([data-theme="light"]) .theme-toggle .i-moon { display: none; }
-}
+/* Dark shows the sun (switch to light); light shows the moon */
+.theme-toggle .i-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .i-moon { display: block; }
+:root[data-theme="light"] .theme-toggle .i-sun { display: none; }
 
-.theme-toggle-fixed {
-  position: fixed;
-  top: 18px;
-  right: 22px;
-  z-index: 200;
-  width: 42px;
-  height: 42px;
+/* Sits at the right end of the name row, i.e. above the photo's top-right corner */
+.name-row .theme-toggle {
+  margin-left: auto;
+  width: 40px;
+  height: 40px;
   background: var(--surface);
   color: var(--ink);
-  box-shadow: 0 4px 14px -6px var(--shadow);
+  box-shadow: 0 4px 14px -8px var(--shadow);
 }
-.theme-toggle-fixed .icon { font-size: 19px; }
-.topbar .theme-toggle { width: 30px; height: 30px; align-self: center; }
-.topbar .topbar-right { display: flex; align-items: center; gap: 18px; }
+.name-row .theme-toggle .icon { font-size: 18px; }
 
 /* --------------------------------------------------------------------------
    Icons
@@ -584,7 +546,6 @@ section { scroll-margin-top: 70px; }
 @media (max-width: 1270px) {
   #toc-nav { display: none; }
   .topbar { display: block; }
-  .theme-toggle-fixed { display: none; }
 }
 
 @media (max-width: 760px) {
