@@ -549,7 +549,18 @@ section { scroll-margin-top: 70px; }
   :root:not([data-theme="light"]) .theme-toggle .i-moon { display: none; }
 }
 
-#toc-nav .theme-toggle { margin-top: 18px; }
+.theme-toggle-fixed {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  z-index: 200;
+  width: 42px;
+  height: 42px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 4px 14px -6px var(--shadow);
+}
+.theme-toggle-fixed .icon { font-size: 19px; }
 .topbar .theme-toggle { width: 30px; height: 30px; align-self: center; }
 .topbar .topbar-right { display: flex; align-items: center; gap: 18px; }
 
@@ -573,6 +584,7 @@ section { scroll-margin-top: 70px; }
 @media (max-width: 1270px) {
   #toc-nav { display: none; }
   .topbar { display: block; }
+  .theme-toggle-fixed { display: none; }
 }
 
 @media (max-width: 760px) {
